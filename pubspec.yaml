@@ -49,13 +49,11 @@ dev_dependencies:
   
 
 flutter_native_splash:
-   background_image: "assets/bg-gradient.png"
+   color: "#ffffff"
    image: "assets/splash-logo.png"
-   branding: "assets/splash-brand.png"
 
    android_12:
-     color: "#006078"
-#     background_image: "assets/bg-gradient.png"
+     color: "#ffffff"
      image: "assets/splash-logo.png"
 
 
