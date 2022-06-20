@@ -1,3 +1,5 @@
+import 'package:cpyd03/screens/home.dart';
+import 'package:cpyd03/screens/login.dart';
 import 'package:cpyd03/themes.dart';
 import 'package:flutter/material.dart';
 
@@ -28,34 +30,18 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  bool _isAuthenticated = false;
 
-  void _incrementCounter() => setState(() => _counter++);
+  void _checkAuthentication() {
+    // Do some work here
+
+    setState(() => _isAuthenticated = true);
+  }
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-
-    return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
-      backgroundColor: theme.colorScheme.background,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: theme.textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
-    );
+    return _isAuthenticated
+        ? HomeScreen(title: widget.title)
+        : const LoginScreen();
   }
 }
