@@ -1,4 +1,3 @@
-import 'package:cpyd03/main.dart';
 import 'package:cpyd03/screens/home.dart';
 import 'package:flutter/material.dart';
 
