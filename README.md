@@ -1,16 +1,42 @@
-# cpyd03
+# Get-In Utem
 
-A new Flutter project.
+Aplicación hecha en flutter para la asignatura de Computación paralela y distribuida.
 
-## Getting Started
+Get-In Utem es una aplicación para marcar asistencia y salida de clases por parte de los alumnos, mediante la lectura de códigos QR.
 
-This project is a starting point for a Flutter application.
+## Integrantes
 
-A few resources to get you started if this is your first Flutter project:
+- Rafael Morales Venegas
+- Diego Oyarce Trejo
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Profesor
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Sebastián Salazar Molina
+
+## Fotos
+
+Estas imágenes no son capturas de pantalla, sino más bien diseños hechos en Figma.
+
+![Pantalla de Login](assets/Readme/Login%20Screen.png "Pantalla de Login")
+![Dashboard](assets/Readme/Home%20Screen.png "Dashboard sin clases")
+![Dashboard dos](assets/Readme/Home%20(On%20class)%20Screen.png "Dashboard en clases")
+
+## Autores de Fotos utilizadas
+
+Para este proyecto se han utilizado algunas fotos de dominio público encontradas en el sitio web Unplash.
+A continuación se muestran los autores de aquellas fotos.
+
+### Jeswin Thomas
+
+- [Unplash](https://unsplash.com/@jeswinthomas)
+- [Instagram](https://www.instagram.com/jeswin.thomas/)
+
+### Van Tay Media
+
+- [Unplash](https://unsplash.com/@vantaymedia)
+- [Portafolio](http://vantaymedia.vn/s/8sN)
+
+### Wes Hicks
+
+- [Unplash](https://unsplash.com/@sickhews)
+- [Instagram](https://www.instagram.com/sickhews/)

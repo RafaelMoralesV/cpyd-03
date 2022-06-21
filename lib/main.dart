@@ -32,6 +32,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   bool _isAuthenticated = false;
 
+  // ignore: unused_element
   void _checkAuthentication() {
     // Do some work here
 
