@@ -1,45 +1,46 @@
+import 'dart:math';
+
+import 'package:cpyd03/screens/meta_screens/blank_card_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key, required this.title}) : super(key: key);
-  final String title;
+  HomeScreen({Key? key}) : super(key: key);
+
+  final List<String> _greetings = [
+    "Bienvenid@",
+    "Que bueno volver a verte",
+    "¿Cómo has estado?",
+    "¿Cómo te encuentras?",
+    "¿Qué tal estás?",
+  ];
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _counter = 0;
+  String? greetings;
 
-  void _incrementCounter() => setState(() => _counter++);
+  @override
+  void initState() {
+    super.initState();
+
+    greetings = widget._greetings[Random().nextInt(widget._greetings.length)];
+  }
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-        automaticallyImplyLeading: false,
-      ),
-      backgroundColor: theme.colorScheme.background,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: theme.textTheme.headline4,
-            ),
-          ],
+    return BlankCardScreen(
+      topWidget: Text(
+        greetings ?? "Bienvenid@",
+        style: GoogleFonts.inter(
+          fontSize: 36,
+          fontWeight: FontWeight.w700,
+          color: Colors.white,
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+      child: const Text("alo"),
     );
   }
 }

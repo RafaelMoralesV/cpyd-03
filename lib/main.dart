@@ -41,8 +41,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return _isAuthenticated
-        ? HomeScreen(title: widget.title)
-        : const LoginScreen();
+    return _isAuthenticated ? HomeScreen() : const LoginScreen();
   }
 }
