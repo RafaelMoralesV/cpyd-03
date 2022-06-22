@@ -1,4 +1,4 @@
-import 'package:cpyd03/screens/home.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -7,43 +7,87 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Login screen",
-                style: Theme.of(context).textTheme.headline2,
-              ),
-              const TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Correo institucional',
+      backgroundColor: Theme.of(context).colorScheme.primary,
+      body: Column(
+        children: const [
+          LoginCarousel(),
+        ],
+      ),
+    );
+  }
+}
+
+class LoginCarousel extends StatefulWidget {
+  const LoginCarousel({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<LoginCarousel> createState() => _LoginCarouselState();
+}
+
+class _LoginCarouselState extends State<LoginCarousel> {
+  int _current = 0;
+  final CarouselController _controller = CarouselController();
+  final _indexes = [1, 2, 3];
+
+  @override
+  Widget build(BuildContext context) {
+    ColorScheme _scheme = Theme.of(context).colorScheme;
+
+    return Stack(
+      alignment: Alignment.bottomCenter,
+      children: [
+        CarouselSlider(
+          carouselController: _controller,
+          items: _indexes
+              .map(
+                (index) => Image.asset(
+                  "assets/carousel/$index.jpg",
+                  cacheHeight: 500,
+                  fit: BoxFit.fill,
                 ),
-              ),
-              const TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Password',
-                ),
-              ),
-              TextButton(
-                child: const Text("Login"),
-                onPressed: () => Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const HomeScreen(
-                      title: 'Flutter Demo Home Page',
-                    ),
-                  ),
-                ),
-              ),
-            ],
+              )
+              .toList(),
+          options: CarouselOptions(
+            height: 300.0,
+            viewportFraction: 1,
+            pageSnapping: true,
+            autoPlay: true,
+            autoPlayInterval: const Duration(seconds: 5),
+            autoPlayAnimationDuration: const Duration(milliseconds: 1500),
+            autoPlayCurve: Curves.ease,
+            clipBehavior: Clip.hardEdge,
+            onPageChanged: (index, reason) => setState(
+              () => _current = index,
+            ),
           ),
         ),
-      ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: _indexes.asMap().entries.map(
+            (entry) {
+              return GestureDetector(
+                onTap: () => _controller.animateToPage(entry.key),
+                child: Container(
+                  width: 5.0,
+                  height: 5.0,
+                  margin: const EdgeInsets.symmetric(
+                    vertical: 10.0,
+                    horizontal: 3.0,
+                  ),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: _current == entry.key
+                        ? _scheme.primary
+                        : Colors.grey[800],
+                  ),
+                ),
+              );
+            },
+          ).toList(),
+        )
+      ],
     );
   }
 }
