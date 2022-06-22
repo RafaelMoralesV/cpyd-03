@@ -1,26 +1,89 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cpyd03/components/button.dart';
+import 'package:cpyd03/components/input_field.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primary,
-      body: Column(
-        children: const [
-          LoginCarousel(),
-        ],
-      ),
-    );
-  }
+  Widget build(BuildContext context) => Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              const LoginCarousel(),
+              const AppBanner(),
+              const InputField(
+                inputLabel: "Correo Institucional",
+                hintText: "usuario@utem.cl",
+              ),
+              Container(margin: const EdgeInsets.only(top: 25.0)),
+              const InputField(
+                inputLabel: "Contrasena",
+                hintText: "•••••••",
+                isPassword: true,
+              ),
+              Container(margin: const EdgeInsets.only(top: 25.0)),
+              Button(
+                buttonLabel: "Acceder",
+                onPressed: () {},
+              ),
+            ],
+          ),
+        ),
+      );
+}
+
+class AppBanner extends StatelessWidget {
+  const AppBanner({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) => Container(
+        margin: const EdgeInsets.all(25.0),
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          children: [
+            Image.asset("assets/utem_logo_color_azul.png"),
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: Text(
+                "Get-IN Utem",
+                textAlign: TextAlign.left,
+                style: GoogleFonts.montserrat(
+                  textStyle: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: Text(
+                "App de Ingreso a Clases",
+                textAlign: TextAlign.left,
+                style: GoogleFonts.openSans(
+                  textStyle: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
 }
 
 class LoginCarousel extends StatefulWidget {
-  const LoginCarousel({
-    Key? key,
-  }) : super(key: key);
+  const LoginCarousel({Key? key}) : super(key: key);
 
   @override
   State<LoginCarousel> createState() => _LoginCarouselState();
@@ -33,7 +96,7 @@ class _LoginCarouselState extends State<LoginCarousel> {
 
   @override
   Widget build(BuildContext context) {
-    ColorScheme _scheme = Theme.of(context).colorScheme;
+    ColorScheme scheme = Theme.of(context).colorScheme;
 
     return Stack(
       alignment: Alignment.bottomCenter,
@@ -74,12 +137,12 @@ class _LoginCarouselState extends State<LoginCarousel> {
                   height: 5.0,
                   margin: const EdgeInsets.symmetric(
                     vertical: 10.0,
-                    horizontal: 3.0,
+                    horizontal: 1.5,
                   ),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: _current == entry.key
-                        ? _scheme.primary
+                        ? scheme.primary
                         : Colors.grey[800],
                   ),
                 ),

@@ -8,7 +8,7 @@ class CustomTheme {
         colorScheme: ColorScheme.fromSeed(
           seedColor: utemBlue,
           primary: utemBlue,
-          secondary: Color.lerp(utemBlue, utemGreen, 0.4),
+          secondary: utemGreen,
         ),
       );
 
