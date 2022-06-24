@@ -37,7 +37,12 @@ class BlankCardScreen extends StatelessWidget {
                 ),
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 25.0),
-                  child: Image.asset("assets/utem_logo_color_azul.png"),
+                  child: Center(
+                    child: Image.asset(
+                      "assets/utem_logo_color_azul.png",
+                      height: 70,
+                    ),
+                  ),
                 ),
               ],
             ),

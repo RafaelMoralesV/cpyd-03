@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class TouchableListItem extends StatelessWidget {
   const TouchableListItem({
@@ -47,10 +46,7 @@ class TouchableListItem extends StatelessWidget {
                       height: 40.0,
                       child: Text(
                         title,
-                        style: GoogleFonts.inter(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: Theme.of(context).textTheme.headline1,
                       ),
                     ),
                     Container(
@@ -58,11 +54,7 @@ class TouchableListItem extends StatelessWidget {
                       height: 40.0,
                       child: Text(
                         description,
-                        style: GoogleFonts.inter(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: const Color(0xff3e3e3e),
-                        ),
+                        style: Theme.of(context).textTheme.headline3,
                       ),
                     ),
                   ],

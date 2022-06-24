@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:cpyd03/components/touchable_list_item.dart';
+import 'package:cpyd03/screens/about.dart';
 import 'package:cpyd03/screens/meta_screens/blank_card_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -48,20 +49,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
                 "Clase actual",
-                style: GoogleFonts.inter(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: Theme.of(context).textTheme.headline1,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5.0),
                 child: Text(
                   "No estás presente en ninguna clase ahora mismo...",
-                  style: GoogleFonts.inter(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: const Color(0xff3e3e3e),
-                  ),
+                  style: Theme.of(context).textTheme.headline3,
                 ),
               )
             ]),
@@ -85,7 +79,12 @@ class _HomeScreenState extends State<HomeScreen> {
             title: "Sobre la App",
             description: "Revisa detalles sobre esta App",
             icon: Icons.laptop_chromebook,
-            onTap: (() => print("peo 3")),
+            onTap: (() => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AboutScreen(),
+                  ),
+                )),
           ),
         ],
       ),
