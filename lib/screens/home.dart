@@ -45,20 +45,22 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Column(
         children: [
           Expanded(
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
-                "Clase actual",
-                style: Theme.of(context).textTheme.headline1,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                child: Text(
-                  "No estás presente en ninguna clase ahora mismo...",
-                  style: Theme.of(context).textTheme.headline3,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Clase actual",
+                  style: Theme.of(context).textTheme.headline1,
                 ),
-              )
-            ]),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                  child: Text(
+                    "No estás presente en ninguna clase ahora mismo...",
+                    style: Theme.of(context).textTheme.headline3,
+                  ),
+                )
+              ],
+            ),
           ),
           const Divider(),
           TouchableListItem(
@@ -79,12 +81,14 @@ class _HomeScreenState extends State<HomeScreen> {
             title: "Sobre la App",
             description: "Revisa detalles sobre esta App",
             icon: Icons.laptop_chromebook,
-            onTap: (() => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const AboutScreen(),
-                  ),
-                )),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const AboutScreen(),
+                ),
+              );
+            },
           ),
         ],
       ),

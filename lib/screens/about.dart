@@ -43,15 +43,31 @@ class AboutScreen extends StatelessWidget {
               "https://github.com/RafaelMoralesV/cpyd-03",
             ),
           ),
-          Text("Sobre la Asignatura", style: textTheme.headline2),
-          Text("Computación paralela y distribuída",
-              style: textTheme.headline3),
+          Text(
+            "Sobre la Asignatura",
+            style: textTheme.headline2,
+          ),
+          Text(
+            "Computación paralela y distribuída",
+            style: textTheme.headline3,
+          ),
           Text(
             "Profesor Sebastián Salazar Molina",
             style: Theme.of(context).textTheme.bodyLarge,
           ),
           Text(
             "Primer Semestre 2022",
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+          const SizedBox(height: 10.0),
+          const Divider(),
+          const SizedBox(height: 10.0),
+          Text(
+            "Agradecimientos",
+            style: textTheme.headline2,
+          ),
+          Text(
+            "Jeswin Thomas, Van Tay Media y Wes Hicks por las fotos utilizadas.",
             style: Theme.of(context).textTheme.bodyLarge,
           ),
         ],
