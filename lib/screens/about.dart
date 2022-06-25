@@ -44,7 +44,7 @@ class AboutScreen extends StatelessWidget {
             ),
           ),
           Text("Sobre la Asignatura", style: textTheme.headline2),
-          Text("Computación paraleta y distribuida",
+          Text("Computación paralela y distribuída",
               style: textTheme.headline3),
           Text(
             "Profesor Sebastián Salazar Molina",

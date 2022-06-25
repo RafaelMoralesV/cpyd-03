@@ -10,8 +10,8 @@ class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
 
   final List<String> _greetings = [
-    "Bienvenid@",
-    "Que bueno volver a verte",
+    "¡Bienvenide!",
+    "¡Qué bueno volver a verte!",
     "¿Cómo has estado?",
     "¿Cómo te encuentras?",
     "¿Qué tal estás?",
@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return BlankCardScreen(
       topWidget: Text(
-        greetings ?? "wena po",
+        greetings ?? "01101000 01101111 01101100 01100001",
         style: GoogleFonts.inter(
           fontSize: 36,
           fontWeight: FontWeight.w700,
