@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:cpyd03/components/touchable_list_item.dart';
 import 'package:cpyd03/screens/about.dart';
 import 'package:cpyd03/screens/meta_screens/blank_card_screen.dart';
+import 'package:cpyd03/screens/qr_reader.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -22,7 +23,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String? greetings;
+  late String greetings;
 
   @override
   void initState() {
@@ -35,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return BlankCardScreen(
       topWidget: Text(
-        greetings ?? "01101000 01101111 01101100 01100001",
+        greetings,
         style: GoogleFonts.inter(
           fontSize: 36,
           fontWeight: FontWeight.w700,
@@ -58,7 +59,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     "No estás presente en ninguna clase ahora mismo...",
                     style: Theme.of(context).textTheme.headline3,
                   ),
-                )
+                ),
+                Center(
+                  child: SizedBox(
+                    width: 75,
+                    height: 50,
+                    child: Image.asset(
+                      'assets/moon.png',
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -67,7 +77,12 @@ class _HomeScreenState extends State<HomeScreen> {
             title: "Ingresar",
             description: "Lee el código QR de ingreso para tu clase",
             icon: Icons.qr_code_scanner,
-            onTap: (() => print("peo 1")),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const QRReaderScreen(),
+              ),
+            ),
           ),
           const Divider(),
           TouchableListItem(
