@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:cpyd03/components/touchable_list_item.dart';
 import 'package:cpyd03/screens/about.dart';
+import 'package:cpyd03/screens/asistencia.dart';
 import 'package:cpyd03/screens/meta_screens/blank_card_screen.dart';
 import 'package:cpyd03/screens/qr_reader.dart';
 import 'package:flutter/material.dart';
@@ -89,7 +90,12 @@ class _HomeScreenState extends State<HomeScreen> {
             title: "Asistencia",
             description: "Revisa tu asistencia a clases",
             icon: Icons.supervised_user_circle,
-            onTap: (() => print("peo 2")),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: ((context) => const AsistenciaScreen()),
+              ),
+            ),
           ),
           const Divider(),
           TouchableListItem(

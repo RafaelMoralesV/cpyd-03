@@ -41,6 +41,8 @@ dependencies:
   google_fonts: ^3.0.1
   flutter_svg: ^1.1.0
   url_launcher: ^6.1.4
+  flutter_dotenv: ^5.0.2
+  dio: ^4.0.6
 
 dev_dependencies:
   flutter_test:
@@ -85,6 +87,7 @@ flutter:
     - assets/
     - assets/carousel/
     - assets/about/
+    - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
