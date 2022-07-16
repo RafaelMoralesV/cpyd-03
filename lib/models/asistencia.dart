@@ -4,8 +4,8 @@ import 'package:dio/dio.dart';
 class Asistencia {
   String classroom;
   String subject;
-  String entrance;
-  String leaving;
+  DateTime entrance;
+  DateTime leaving;
   String email;
 
   Asistencia({
@@ -20,8 +20,8 @@ class Asistencia {
     return Asistencia(
       classroom: json['classroom'],
       subject: json['subject'],
-      entrance: json['entrance'],
-      leaving: json['leaving'],
+      entrance: DateTime.parse(json['entrance']),
+      leaving: DateTime.parse(json['leaving']),
       email: json['email'],
     );
   }
