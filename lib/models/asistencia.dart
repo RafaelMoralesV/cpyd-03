@@ -1,7 +1,6 @@
 import 'package:cpyd03/utils/dio.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class Asistencia {
   String classroom;
@@ -33,10 +32,8 @@ class Asistencia {
     var response = await dio.get("/v1/classroom/attendances");
 
     if (response.statusCode != 200) {
-      throw Error();
+      throw Exception(response.data['message']);
     }
-
-    debugPrint(response.data);
 
     List<dynamic> list = List<dynamic>.from(response.data);
     return List<Asistencia>.from(

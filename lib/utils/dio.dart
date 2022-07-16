@@ -21,6 +21,8 @@ class ClassroomDio {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? jwt = prefs.getString('jwt');
 
+    debugPrint(jwt);
+
     return Dio(
       BaseOptions(
         baseUrl: url,

@@ -33,9 +33,8 @@ class AuthorizationScreen extends StatelessWidget {
             MaterialPageRoute(builder: (context) => HomeScreen()),
           );
 
-          return NavigationDecision.prevent;
+          return NavigationDecision.navigate;
         }
-        debugPrint(navReq.url);
 
         return NavigationDecision.navigate;
       },
