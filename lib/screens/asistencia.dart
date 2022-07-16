@@ -42,6 +42,10 @@ class _AsistenciaScreenState extends State<AsistenciaScreen> {
                 );
               }
 
+              if (snapshot.hasError) {
+                return const Text("Hubo un error. Penita!");
+              }
+
               return SizedBox(
                 height: 600,
                 child: ListView.builder(

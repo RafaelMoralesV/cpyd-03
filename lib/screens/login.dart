@@ -1,10 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cpyd03/components/button.dart';
 import 'package:cpyd03/components/input_field.dart';
+import 'package:cpyd03/utils/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'package:cpyd03/screens/home.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -30,12 +29,7 @@ class LoginScreen extends StatelessWidget {
               Container(margin: const EdgeInsets.only(top: 25.0)),
               Button(
                 buttonLabel: "Acceder",
-                onPressed: () => Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => HomeScreen(),
-                  ),
-                ),
+                onPressed: () => ClassroomDio.login(context),
               ),
             ],
           ),
