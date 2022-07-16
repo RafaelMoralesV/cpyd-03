@@ -11,37 +11,40 @@ class AuthorizationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WebView(
-      initialUrl: url,
-      userAgent: "random",
-      javascriptMode: JavascriptMode.unrestricted,
-      onWebViewCreated: (controller) {
-        controller.clearCache();
-        CookieManager().clearCookies();
-      },
-      navigationDelegate: (navReq) {
-        if (navReq.url.startsWith(
-          '${dotenv.get('X_API_URL')}/v1/authentication/result',
-        )) {
-          // Si la pagina a la que vamos es la de resultados, guardo
-          // el JWT, y navego a HomeScreen
-          var responseUrl = Uri.parse(navReq.url);
+    return Scaffold(
+      appBar: AppBar(title: const Text("Login Utem")),
+      body: WebView(
+        initialUrl: url,
+        userAgent: "random",
+        javascriptMode: JavascriptMode.unrestricted,
+        onWebViewCreated: (controller) {
+          controller.clearCache();
+          CookieManager().clearCookies();
+        },
+        navigationDelegate: (navReq) {
+          if (navReq.url.startsWith(
+            '${dotenv.get('X_API_URL')}/v1/authentication/result',
+          )) {
+            // Si la pagina a la que vamos es la de resultados, guardo
+            // el JWT, y navego a HomeScreen
+            var responseUrl = Uri.parse(navReq.url);
 
-          SharedPreferences.getInstance().then((SharedPreferences prefs) {
-            responseUrl.queryParameters.forEach((key, value) {
-              prefs.setString(key, value);
+            SharedPreferences.getInstance().then((SharedPreferences prefs) {
+              responseUrl.queryParameters.forEach((key, value) {
+                prefs.setString(key, value);
+              });
             });
-          });
 
-          Navigator.pop(context);
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => HomeScreen()),
-          );
-        }
+            Navigator.pop(context);
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => HomeScreen()),
+            );
+          }
 
-        return NavigationDecision.navigate;
-      },
+          return NavigationDecision.navigate;
+        },
+      ),
     );
   }
 }

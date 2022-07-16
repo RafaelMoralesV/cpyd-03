@@ -3,6 +3,7 @@ import 'package:cpyd03/components/button.dart';
 import 'package:cpyd03/components/input_field.dart';
 import 'package:cpyd03/utils/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -11,28 +12,27 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: Theme.of(context).colorScheme.primary,
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              const LoginCarousel(),
-              const AppBanner(),
-              const InputField(
-                inputLabel: "Correo Institucional",
-                hintText: "usuario@utem.cl",
+        body: Column(
+          children: [
+            const LoginCarousel(),
+            const AppBanner(),
+            Expanded(
+              child: Center(
+                child: SizedBox(
+                  height: 50,
+                  child: SignInButton(
+                    Buttons.Google,
+                    onPressed: () => ClassroomDio.login(context),
+                    elevation: 5,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    text: "Ingresar con correo Utem",
+                  ),
+                ),
               ),
-              Container(margin: const EdgeInsets.only(top: 25.0)),
-              const InputField(
-                inputLabel: "Contrasena",
-                hintText: "•••••••",
-                isPassword: true,
-              ),
-              Container(margin: const EdgeInsets.only(top: 25.0)),
-              Button(
-                buttonLabel: "Acceder",
-                onPressed: () => ClassroomDio.login(context),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       );
 }
