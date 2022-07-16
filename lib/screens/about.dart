@@ -29,20 +29,27 @@ class AboutScreen extends StatelessWidget {
           const Integrante(
             image: "doyarce",
             name: "Diego Oyarce Trejo",
-            about: "Sobre mi",
+            about:
+                "Me lesioné como 2 veces en lo que va el semestre. Vamos por una tercera.",
           ),
           const SizedBox(height: 10.0),
-          const Divider(),
+          const Divider(thickness: 1.0),
           const SizedBox(height: 10.0),
           Text("Repositorio de la Aplicación", style: textTheme.headline2),
-          TouchableListItem(
-            icon: Icons.link,
-            title: "Github",
-            description: "Puedes encontrar el código en este sitio",
-            onTap: () async => await launchUrlString(
-              "https://github.com/RafaelMoralesV/cpyd-03",
+          Container(
+            margin: const EdgeInsets.symmetric(vertical: 10),
+            child: TouchableListItem(
+              icon: Icons.link,
+              title: "Github",
+              description: "Puedes encontrar el código en este sitio",
+              onTap: () async => await launchUrlString(
+                "https://github.com/RafaelMoralesV/cpyd-03",
+              ),
             ),
           ),
+          const SizedBox(height: 10.0),
+          const Divider(thickness: 1.0),
+          const SizedBox(height: 10.0),
           Text(
             "Sobre la Asignatura",
             style: textTheme.headline2,
@@ -60,7 +67,7 @@ class AboutScreen extends StatelessWidget {
             style: Theme.of(context).textTheme.bodyLarge,
           ),
           const SizedBox(height: 10.0),
-          const Divider(),
+          const Divider(thickness: 1.0),
           const SizedBox(height: 10.0),
           Text(
             "Agradecimientos",

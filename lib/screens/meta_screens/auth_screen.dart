@@ -15,10 +15,16 @@ class AuthorizationScreen extends StatelessWidget {
       initialUrl: url,
       userAgent: "random",
       javascriptMode: JavascriptMode.unrestricted,
+      onWebViewCreated: (controller) {
+        controller.clearCache();
+        CookieManager().clearCookies();
+      },
       navigationDelegate: (navReq) {
         if (navReq.url.startsWith(
           '${dotenv.get('X_API_URL')}/v1/authentication/result',
         )) {
+          // Si la pagina a la que vamos es la de resultados, guardo
+          // el JWT, y navego a HomeScreen
           var responseUrl = Uri.parse(navReq.url);
 
           SharedPreferences.getInstance().then((SharedPreferences prefs) {
@@ -32,8 +38,6 @@ class AuthorizationScreen extends StatelessWidget {
             context,
             MaterialPageRoute(builder: (context) => HomeScreen()),
           );
-
-          return NavigationDecision.navigate;
         }
 
         return NavigationDecision.navigate;
