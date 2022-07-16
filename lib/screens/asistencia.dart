@@ -170,6 +170,20 @@ class AsistenciaListItem extends StatelessWidget {
               ],
             ),
           ),
+          Container(
+            margin: const EdgeInsets.only(left: 5),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  DateFormat("HH:mm").format(asistencia.entrance),
+                ),
+                Text(
+                  DateFormat("HH:mm").format(asistencia.leaving),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
