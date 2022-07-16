@@ -147,11 +147,12 @@ class AsistenciaListItem extends StatelessWidget {
       child: Row(
         children: [
           Container(
-              margin: const EdgeInsets.symmetric(horizontal: 10),
-              child: Text(
-                (index + 1).toString(),
-                style: theme.headline3,
-              )),
+            margin: const EdgeInsets.symmetric(horizontal: 10),
+            child: Text(
+              (index + 1).toString(),
+              style: theme.headline3,
+            ),
+          ),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

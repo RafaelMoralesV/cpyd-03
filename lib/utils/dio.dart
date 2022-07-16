@@ -25,7 +25,7 @@ class ClassroomDio {
 
     return Dio(
       BaseOptions(
-        baseUrl: url,
+        baseUrl: "$url/v1/classroom",
         headers: {
           'Accept': 'application/json',
           'jwt': jwt,
@@ -48,6 +48,12 @@ class ClassroomDio {
         builder: (context) => AuthorizationScreen(url: res.data['redirectUrl']),
       ),
     );
+
+    return true;
+  }
+
+  static Future<bool> GetIn(context) async {
+    Dio dio = await ClassroomDio.classroomDio;
 
     return true;
   }

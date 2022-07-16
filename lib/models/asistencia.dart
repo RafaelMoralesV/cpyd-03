@@ -28,7 +28,7 @@ class Asistencia {
 
   static Future<List<Asistencia>> fetchAsistencias() async {
     Dio dio = await ClassroomDio.classroomDio;
-    var response = await dio.get("/v1/classroom/attendances");
+    var response = await dio.get("/attendances");
 
     if (response.statusCode != 200) {
       throw Exception(response.data['message']);
