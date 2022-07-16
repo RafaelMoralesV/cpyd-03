@@ -1,6 +1,5 @@
 import 'package:cpyd03/utils/dio.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 
 class Asistencia {
   String classroom;
