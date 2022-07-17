@@ -67,6 +67,14 @@ class _QRReaderScreenState extends State<QRReaderScreen> {
           HapticFeedback.lightImpact();
 
           var info = jsonDecode(code);
+
+          if (info['classroom'] == null || info['subject'] == null) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text("Código QR Inválido.")),
+            );
+            return;
+          }
+
           ClassroomDio.getIn(info['classroom'], info['subject']);
 
           Navigator.pop(context);
