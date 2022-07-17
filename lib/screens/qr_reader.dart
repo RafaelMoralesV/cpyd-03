@@ -77,7 +77,7 @@ class _QRReaderScreenState extends State<QRReaderScreen> {
 
           ClassroomDio.getIn(info['classroom'], info['subject']);
 
-          Navigator.pop(context);
+          Navigator.pop(context, true);
         },
       ),
     );

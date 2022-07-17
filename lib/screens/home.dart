@@ -84,15 +84,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   title: "Ingresar",
                   description: "Lee el código QR de ingreso para tu clase",
                   icon: Icons.qr_code_scanner,
-                  onTap: () => Navigator.push(
+                  onTap: () => Navigator.push<bool>(
                     context,
                     MaterialPageRoute(
                       builder: (context) => const QRReaderScreen(),
                     ),
-                  ).then((_) {
+                  ).then((bool? inClass) {
                     setState(() {
                       _asist = changeState();
-                      inClass = true;
+                      inClass = inClass ?? false;
                     });
                   }),
                 );
