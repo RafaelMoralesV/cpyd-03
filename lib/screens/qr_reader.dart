@@ -1,6 +1,10 @@
+import 'dart:convert';
+
+import 'package:cpyd03/utils/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class QRReaderScreen extends StatefulWidget {
   const QRReaderScreen({Key? key}) : super(key: key);
@@ -61,10 +65,12 @@ class _QRReaderScreenState extends State<QRReaderScreen> {
           }
 
           final String code = barcode.rawValue!;
-          debugPrint("Going to heavy Impact!");
           HapticFeedback.lightImpact();
+
+          var info = jsonDecode(code);
+          ClassroomDio.getIn(info['classroom'], info['subject']);
+
           Navigator.pop(context);
-          debugPrint('Barcode found! $code');
         },
       ),
     );

@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:cpyd03/screens/meta_screens/auth_screen.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ClassroomDio {
@@ -20,8 +23,6 @@ class ClassroomDio {
   static Future<Dio> get classroomDio async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? jwt = prefs.getString('jwt');
-
-    debugPrint(jwt);
 
     return Dio(
       BaseOptions(
@@ -52,9 +53,46 @@ class ClassroomDio {
     return true;
   }
 
-  static Future<bool> GetIn(context) async {
+  static Future<bool> getIn(String classroom, String subject) async {
     Dio dio = await ClassroomDio.classroomDio;
 
-    return true;
+    var params = {
+      "classroom": classroom,
+      "subject": subject,
+      "entrance": _formatedNowString(),
+    };
+
+    SharedPreferences.getInstance().then((prefs) {
+      prefs.setString('classroom', params['classroom']!);
+      prefs.setString('subject', params['subject']!);
+      prefs.setString('entrance', params['entrance']!);
+    });
+
+    var res = await dio.post('/getin', data: jsonEncode(params));
+    return res.statusCode == 200;
+  }
+
+  static Future<bool> getOut() async {
+    Dio dio = await ClassroomDio.classroomDio;
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    var params = {
+      'classroom': prefs.getString('classroom'),
+      'subject': prefs.getString('subject'),
+      'entrance': prefs.getString('entrance'),
+      'leaving': _formatedNowString(),
+    };
+
+    var res = await dio.post("/getout", data: jsonEncode(params));
+    return res.statusCode == 200;
+  }
+
+  static String _formatedNowString({DateTime? dt}) {
+    var now = dt ?? DateTime.now();
+    var date = DateFormat("yyyy-MM-dd").format(now);
+    var time = DateFormat("HH:mm:ss").format(now);
+
+    return "${date}T${time}Z";
   }
 }
