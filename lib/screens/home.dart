@@ -28,9 +28,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late String greetings;
 
-  String? classroom;
-  String? subject;
-  String? entrance;
+  late Future<Map> _asist;
+  bool inClass = false;
 
   @override
   void initState() {
@@ -38,11 +37,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
     greetings = widget._greetings[Random().nextInt(widget._greetings.length)];
 
-    SharedPreferences.getInstance().then((SharedPreferences prefs) {
-      classroom = prefs.getString('classroom');
-      subject = prefs.getString('subject');
-      entrance = prefs.getString('entrance');
-    });
+    _asist = changeState();
+  }
+
+  Future<Map> changeState() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    return {
+      'classroom': prefs.getString('classroom'),
+      'subject': prefs.getString('subject'),
+      'entrance': prefs.getString('entrance'),
+    };
   }
 
   @override
@@ -58,27 +63,24 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       child: Column(
         children: [
-          InfoClaseActual(
-            classroom: classroom,
-            subject: subject,
-            entrance: entrance,
+          FutureBuilder(
+            future: _asist,
+            builder: (context, AsyncSnapshot<Map> snapshot) {
+              if (!inClass) {
+                return const NotInClass();
+              }
+
+              return snapshot.hasData
+                  ? InClass(classData: snapshot.data!)
+                  : const CircularProgressIndicator();
+            },
           ),
           const Divider(),
-          classroom != null
-              ? TouchableListItem(
-                  icon: Icons.run_circle_outlined,
-                  title: "Retirarse",
-                  description: "Marcarás tu salida de clase. ¡Adiós!",
-                  onTap: () {
-                    ClassroomDio.getOut();
-                    setState(() {
-                      classroom = null;
-                      subject = null;
-                      entrance = null;
-                    });
-                  },
-                )
-              : TouchableListItem(
+          FutureBuilder(
+            future: _asist,
+            builder: (context, AsyncSnapshot<Map> snapshot) {
+              if (!inClass) {
+                return TouchableListItem(
                   title: "Ingresar",
                   description: "Lee el código QR de ingreso para tu clase",
                   icon: Icons.qr_code_scanner,
@@ -87,8 +89,30 @@ class _HomeScreenState extends State<HomeScreen> {
                     MaterialPageRoute(
                       builder: (context) => const QRReaderScreen(),
                     ),
-                  ),
-                ),
+                  ).then((_) {
+                    setState(() {
+                      _asist = changeState();
+                      inClass = true;
+                    });
+                  }),
+                );
+              }
+
+              return snapshot.hasData
+                  ? TouchableListItem(
+                      icon: Icons.run_circle_outlined,
+                      title: "Retirarse",
+                      description: "Marcarás tu salida de clase. ¡Adiós!",
+                      onTap: () {
+                        ClassroomDio.getOut();
+                        setState(() {
+                          inClass = false;
+                        });
+                      },
+                    )
+                  : const CircularProgressIndicator();
+            },
+          ),
           const Divider(),
           TouchableListItem(
             title: "Asistencia",
@@ -121,20 +145,15 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class InfoClaseActual extends StatelessWidget {
-  const InfoClaseActual({
-    Key? key,
-    this.classroom,
-    this.subject,
-    this.entrance,
-  }) : super(key: key);
+class InClass extends StatelessWidget {
+  const InClass({Key? key, required this.classData}) : super(key: key);
 
-  final String? classroom;
-  final String? subject;
-  final String? entrance;
+  final Map classData;
 
   @override
   Widget build(BuildContext context) {
+    final String classroom = classData['classroom'];
+    final String subject = classData['subject'];
     TextTheme theme = Theme.of(context).textTheme;
     return Expanded(
       child: Column(
@@ -146,62 +165,83 @@ class InfoClaseActual extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5.0),
-            child: classroom != null
-                ? Row(
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Salón:",
-                              style: theme.headline2,
-                            ),
-                            Text(
-                              classroom!,
-                              style: theme.headline3,
-                            ),
-                          ],
-                        ),
+                      Text(
+                        "Salón:",
+                        style: theme.headline2,
                       ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Código:",
-                              style: theme.headline2,
-                            ),
-                            Text(
-                              subject!,
-                              style: theme.headline3,
-                            ),
-                          ],
-                        ),
-                      )
+                      Text(
+                        classroom,
+                        style: theme.headline3,
+                      ),
                     ],
-                  )
-                : Text(
-                    "No estás presente en ninguna clase ahora mismo...",
-                    style: Theme.of(context).textTheme.headline3,
                   ),
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Código:",
+                        style: theme.headline2,
+                      ),
+                      Text(
+                        subject,
+                        style: theme.headline3,
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
           Center(
-            child: classroom != null
-                ? Container(
-                    margin: const EdgeInsets.only(top: 10),
-                    child: Text(
-                      "¡Suerte en tu clase!",
-                      style: theme.headline3,
-                    ),
-                  )
-                : SizedBox(
-                    width: 75,
-                    height: 50,
-                    child: Image.asset(
-                      'assets/moon.png',
-                    ),
-                  ),
+              child: Container(
+            margin: const EdgeInsets.only(top: 10),
+            child: Text(
+              "¡Suerte en tu clase!",
+              style: theme.headline3,
+            ),
+          )),
+        ],
+      ),
+    );
+  }
+}
+
+class NotInClass extends StatelessWidget {
+  const NotInClass({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Clase actual",
+            style: Theme.of(context).textTheme.headline1,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5.0),
+            child: Text(
+              "No estás presente en ninguna clase ahora mismo...",
+              style: Theme.of(context).textTheme.headline3,
+            ),
+          ),
+          Center(
+            child: SizedBox(
+              width: 75,
+              height: 50,
+              child: Image.asset(
+                'assets/moon.png',
+              ),
+            ),
           ),
         ],
       ),

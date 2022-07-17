@@ -4,7 +4,6 @@ import 'package:cpyd03/utils/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class QRReaderScreen extends StatefulWidget {
   const QRReaderScreen({Key? key}) : super(key: key);
